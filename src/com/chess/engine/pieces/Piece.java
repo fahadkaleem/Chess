@@ -11,12 +11,16 @@ public abstract class Piece {
     // Alliance is each piece being associated with a white tile or a black tile
     protected final Alliance pieceAlliance;
     protected final boolean isFirstMove;
+    protected final PieceType pieceType;
 
-    public Piece(final int piecePosition, final Alliance pieceAlliance) {
+
+
+    public Piece(final Alliance pieceAlliance, final int piecePosition, final PieceType pieceType) {
         this.piecePosition = piecePosition;
         this.pieceAlliance = pieceAlliance;
         // TODO: Finish first move implementation
         this.isFirstMove = false;
+        this.pieceType = pieceType;
     }
 
     public boolean isFirstMove(){
@@ -28,6 +32,10 @@ public abstract class Piece {
     }
 
     public int getPiecePosition(){ return this.piecePosition; }
+
+    public PieceType getPieceType(){
+        return this.pieceType;
+    }
 
     public abstract Collection<Move> calculateLegalMoves(final Board board);
 }

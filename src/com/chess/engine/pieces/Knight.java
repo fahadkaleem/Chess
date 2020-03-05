@@ -18,8 +18,8 @@ public class Knight extends Piece {
     // Offset of tile coordinate from any position of the knight
     private final static int[] CANDIDATE_MOVES = {-17, -15, -10, -6, 6, 10, 15, 17};
 
-    public Knight(final int piecePosition, final Alliance pieceAlliance) {
-        super(piecePosition, pieceAlliance);
+    public Knight(final Alliance pieceAlliance, final int piecePosition) {
+        super(pieceAlliance, piecePosition, PieceType.KNIGHT);
     }
 
     @Override
@@ -76,6 +76,11 @@ public class Knight extends Piece {
         return BoardUtils.EIGHT_COLUMN[currentPosition]
                 && (candidateOffset == -15 || candidateOffset == -6
                 || candidateOffset == 10 || candidateOffset == 17);
+    }
+
+    @Override
+    public String toString() {
+        return PieceType.KNIGHT.toString();
     }
 
 }

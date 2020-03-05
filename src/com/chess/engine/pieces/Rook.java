@@ -15,8 +15,8 @@ import static com.chess.engine.board.Move.*;
 
 public class Rook extends Piece {
     private final static int[] CANDIDATE_MOVE_VECTOR_COORDINATES = {-8, -1, 1, 8};
-    public Rook(int piecePosition, Alliance pieceAlliance) {
-        super(piecePosition, pieceAlliance);
+    public Rook(final Alliance pieceAlliance, final int piecePosition) {
+        super(pieceAlliance, piecePosition, PieceType.ROOK);
     }
 
     @Override
@@ -54,5 +54,10 @@ public class Rook extends Piece {
 
     private static boolean isEightColumnExclusion(final int currentPosition, final int candidateOffset){
         return BoardUtils.FIRST_COLUMN[currentPosition] && (candidateOffset == 1);
+    }
+
+    @Override
+    public String toString() {
+        return PieceType.ROOK.toString();
     }
 }

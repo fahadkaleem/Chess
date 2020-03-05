@@ -16,8 +16,8 @@ import static com.chess.engine.board.Move.*;
 public class King extends Piece {
     private final static int[] CANDIDATE_MOVE_COORDINATES = {-9, -8, -7, -1, 1, 7, 8 , 9};
 
-    public King(int piecePosition, Alliance pieceAlliance) {
-        super(piecePosition, pieceAlliance);
+    public King(final Alliance pieceAlliance, final int piecePosition) {
+        super(pieceAlliance, piecePosition, PieceType.KING);
     }
 
     @Override
@@ -58,5 +58,10 @@ public class King extends Piece {
 
     private static boolean isEightColumnExclusion(final int currentPosition, final int candidateOffset) {
         return BoardUtils.EIGHT_COLUMN[currentPosition] && (candidateOffset == -7 || candidateOffset == 1 || candidateOffset == 9);
+    }
+
+    @Override
+    public String toString() {
+        return PieceType.KING.toString();
     }
 }
