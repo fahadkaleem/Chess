@@ -138,6 +138,13 @@
       <option name="AUTODETECT_INDENTS" value="false" />
     </code_scheme>
   </component>
+  <component name="ProjectDictionaryState">
+    <dictionary name="kaleemmf">
+      <words>
+        <w>movetransition</w>
+      </words>
+    </dictionary>
+  </component>
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Chess.iml" filepath="$PROJECT_DIR$/Chess.iml" />

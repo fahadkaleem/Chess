@@ -3,6 +3,7 @@ package com.chess.engine.board;
 import com.chess.engine.Alliance;
 import com.chess.engine.pieces.*;
 import com.chess.engine.player.BlackPlayer;
+import com.chess.engine.player.Player;
 import com.chess.engine.player.WhitePlayer;
 import com.google.common.collect.ImmutableList;
 
@@ -15,8 +16,9 @@ public class Board {
 
     private final WhitePlayer whitePlayer;
     private final BlackPlayer blackPlayer;
+    private final Player currentPlayer;
 
-    private Board(Builder builder) {
+    private Board(final Builder builder) {
         this.gameBoard = createGameBoard(builder);
         this.whitePieces = calculateActivePieces(this.gameBoard, Alliance.WHITE);
         this.blackPieces = calculateActivePieces(this.gameBoard, Alliance.BLACK);
@@ -26,6 +28,7 @@ public class Board {
 
         this.whitePlayer = new WhitePlayer(this, whiteStandardLegalMoves, blackStandardLegalMoves);
         this.blackPlayer = new BlackPlayer(this, whiteStandardLegalMoves, blackStandardLegalMoves);
+        this.currentPlayer = builder.nextMoveMaker.choosePlayer(this.whitePlayer, this.blackPlayer);
     }
 
     private Collection<Move> calculateLegalMoves(final Collection<Piece> pieces) {
@@ -49,16 +52,28 @@ public class Board {
         return ImmutableList.copyOf(activePieces);
     }
 
-    public Collection<Piece> getWhitePieces(){
+    public Player whitePlayer() {
+        return this.whitePlayer;
+    }
+
+    public Player blackPlayer() {
+        return this.blackPlayer;
+    }
+
+    public Collection<Piece> getWhitePieces() {
         return this.whitePieces;
     }
 
-    public Collection<Piece> getBlackPieces(){
+    public Collection<Piece> getBlackPieces() {
         return this.blackPieces;
     }
 
     public Tile getTile(final int tileCoordinate) {
         return gameBoard.get(tileCoordinate);
+    }
+
+    public Player currentPlayer() {
+        return this.currentPlayer;
     }
 
     private static List<Tile> createGameBoard(final Builder builder) {
@@ -137,14 +152,13 @@ public class Board {
     }
 
 
-
     @Override
     public String toString() {
         final StringBuilder stringBuilder = new StringBuilder();
-        for(int i = 0; i < BoardUtils.NUM_TILES; i++){
+        for (int i = 0; i < BoardUtils.NUM_TILES; i++) {
             final String tileText = this.gameBoard.get(i).toString();
             stringBuilder.append(String.format("%3s", tileText));
-            if((i + 1) % BoardUtils.NUM_TILES_PER_ROW == 0){
+            if ((i + 1) % BoardUtils.NUM_TILES_PER_ROW == 0) {
                 stringBuilder.append("\n");
             }
         }
